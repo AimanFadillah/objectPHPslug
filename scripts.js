@@ -7,7 +7,7 @@ textareaInput.addEventListener('keyup',(e) => {
         const products = Object.values(objectJs)
         const slugs = []
         for(const product of products){
-            slugs.push(product['model_name'])
+            slugs.push(product['model_name'].toLocaleLowerCase().replaceAll(' ','-'))
         }
         textareaResult.innerHTML = JSON.stringify([...new Set(slugs)])
     }
