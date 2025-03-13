@@ -7,11 +7,22 @@ textareaInput.addEventListener('keyup',(e) => {
         const products = Object.values(objectJs)
         const slugs = []
         for(const product of products){
-            slugs.push(product['model_name'].toLocaleLowerCase().replaceAll(' ','-'))
+            slugs.push(textToSlug(`${product['device_name']} ${product['model_name']}`))
         }
         textareaResult.innerHTML = JSON.stringify([...new Set(slugs)])
     }
 })
+
+function textToSlug(text) {
+  return text
+      .toLowerCase() 
+      .trim() 
+      .normalize("NFD") 
+      .replace(/\p{Diacritic}/gu, "") 
+      .replace(/[^a-z0-9 -]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+}
 
 function convertToJson (phpStr) {
     if (!phpStr.trim()) {
